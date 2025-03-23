@@ -1,17 +1,12 @@
-import { Component } from '@angular/core';
-import { bootstrapApplication } from '@angular/platform-browser';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { AppComponent } from './app/app.component';
+import { importProvidersFrom } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app/app-routing.module';  // Ensure your routes are set up here
 
-@Component({
-  selector: 'app-root',
-  template: `
-    <h1>Hello from {{ name }}!</h1>
-    <a target="_blank" href="https://angular.dev/overview">
-      Learn more about Angular
-    </a>
-  `,
-})
-export class App {
-  name = 'Angular';
-}
-
-bootstrapApplication(App);
+platformBrowserDynamic()
+  .bootstrapModule(AppComponent, {
+    providers: [importProvidersFrom(BrowserModule, RouterModule, AppRoutingModule)],
+  })
+  .catch((err: any) => console.error(err));
